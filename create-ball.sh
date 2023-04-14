@@ -4,11 +4,13 @@
 # le contenu du fichier pour recréer le fichier plus tard.
 function ajouter_archive() {
   local fichier="$1"
+    local nom_fichier=$(basename "$fichier")  # Récupérer seulement le nom du fichier
+local dossier_parent=$(dirname "$fichier")
   # Vérifier que le fichier existe et est lisible.
   if [ -r "$fichier" ]
   then
     cat << EOF1 >> my-ball.sh
-cat << EOF > "$fichier"
+cat << EOF > "$dossier_parent/$nom_fichier"
 $(cat "$fichier")
 EOF
 
@@ -33,6 +35,7 @@ fi
 # Créer le script "my-ball.sh".
 cat << EOF > my-ball.sh
 #!/bin/bash
+mkdir $1
 EOF
 
 # Itérer sur tous les fichiers et dossiers dans le dossier passé en paramètre.
